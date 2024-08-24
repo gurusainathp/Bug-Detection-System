@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Buster - Show Bugs</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="images/main_logo.png" alt="Bug Buster Logo">
+    </div>
+    <nav>
+        <ul>
+            <li class="reportbugsbtn"><a href="tester2.html">Report Bugs</a></li>
+            <li class="showbugsbtn"><a href="show_bugs.html">Show Bugs</a></li>
+            <li class="profile" style="margin-left: 450px;"><a href="#">Profile</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="show-bugs">
+        <h1>Reported Bugs</h1>
+        <div class="table-container">
+            <table id="bugs-table">
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- rows added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script src="scripts/show_bugs.js"></script>
+</body>
+</html>

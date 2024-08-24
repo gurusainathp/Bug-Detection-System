@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Buster - Tester Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="images/main_logo.png" alt="Bug Buster Logo">
+    </div>
+    <nav>
+        <ul>
+            <li class="reportbugsbtn"><a href="tester2.html">Report Bugs</a></li>
+            <li class="showbugsbtn"><a href="show_bugs.html">Show Bugs</a></li>
+            <li class="profile" style="margin-left: 450px;"><a href="#">Profile</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="report-bug">
+        <h1>Report Bug</h1>
+        <form id="bug-report-form">
+            <label for="project">Select Project</label>
+            <select id="project" name="project" required>
+                <option value="project1">Project 1</option>
+                <option value="project2">Project 2</option>
+                <option value="project3">Project 3</option>
+            </select>
+
+            <label for="bug-title">Bug Title</label>
+            <input type="text" id="bug-title" name="bug-title" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" required>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <section class="welcome-message">
+        <h2>Welcome,<br>Soumya Suman</h2>
+        <p>To the world of seamless bug reporting.</p>
+    </section>
+</main>
+
+<script src="scripts/tester2.js"></script>
+</body>
+</html>
