@@ -1,19 +1,18 @@
 package com.hsbc.views;
 
-import com.hsbc.storage.UserDAL;
-import com.hsbc.models.Bug;
-import com.hsbc.models.Project;
+import com.hsbc.exceptions.BugNotFoundException;
+import com.hsbc.exceptions.ProjectNotFoundException;
 import com.hsbc.models.User;
+import com.hsbc.storage.DeveloperImpl;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class DeveloperMain {
 
-    private UserDAL developerDAL;
+    private DeveloperImpl developerDAL;
     private User loggedInUser;
 
-    public DeveloperMain(UserDAL developerDAL, User loggedInUser) {
+    public DeveloperMain(DeveloperImpl developerDAL, User loggedInUser) {
         this.developerDAL = developerDAL;
         this.loggedInUser = loggedInUser;
     }
@@ -54,15 +53,14 @@ public class DeveloperMain {
     }
 
     private void viewAssignedProjects() {
-        List<Project> projects = developerDAL.getProjectsByUser(loggedInUser.getUserId());
-
-        if (projects.isEmpty()) {
+        // Assuming the logged-in user has a list of assigned projects.
+        if (loggedInUser.getProjects().isEmpty()) {
             System.out.println("No projects assigned to you.");
         } else {
             System.out.println("Assigned Projects:");
-            for (Project project : projects) {
+            loggedInUser.getProjects().forEach(project -> {
                 System.out.println("Project ID: " + project.getProjectId() + ", Project Name: " + project.getProjectName());
-            }
+            });
         }
     }
 
@@ -71,15 +69,10 @@ public class DeveloperMain {
         int projectId = scanner.nextInt();
         scanner.nextLine();  // Consume newline
 
-        List<Bug> bugs = developerDAL.getBugsByProject(projectId);
-
-        if (bugs.isEmpty()) {
-            System.out.println("No bugs found for this project.");
-        } else {
-            System.out.println("Bugs in Project:");
-            for (Bug bug : bugs) {
-                System.out.println("Bug ID: " + bug.getBugId() + ", Message: " + bug.getBugMessage() + ", Status: " + bug.getBugStatus());
-            }
+        try {
+            developerDAL.createReport(projectId);
+        } catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -88,7 +81,14 @@ public class DeveloperMain {
         int bugId = scanner.nextInt();
         scanner.nextLine();  // Consume newline
 
-        developerDAL.markBugAsResolved(bugId);
-        System.out.println("Bug ID " + bugId + " marked as resolved.");
+        System.out.print("Enter Project ID: ");
+        int projectId = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+
+        try {
+            developerDAL.resolveBug(bugId, projectId);
+        } catch (BugNotFoundException | ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

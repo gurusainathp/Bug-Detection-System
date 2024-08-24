@@ -1,76 +1,79 @@
 package com.hsbc.storage;
 
-import com.hsbc.models.BugStatus;
-import com.hsbc.storage.UserDAL;
+import com.hsbc.exceptions.BugNotFoundException;
+import com.hsbc.exceptions.ProjectNotFoundException;
 import com.hsbc.models.Bug;
+import com.hsbc.models.BugStatus;
 import com.hsbc.models.Project;
-import com.hsbc.models.User;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class DeveloperImpl implements UserDAL {
+public class DeveloperImpl implements DeveloperDAL {
 
-    // Mock database storage
-    private Map<Integer, User> users = new HashMap<>();
-    private Map<Integer, Project> projects = new HashMap<>();
-    private Map<Integer, Bug> bugs = new HashMap<>();
+    private List<Project> projects; // Storage for projects
+    private List<Bug> bugList; // Storage for bugs
 
-    @Override
-    public void addUser(User user) {
-        // Add user to the mock database
-        users.put(user.getUserId(), user);
+    public DeveloperImpl(List<Project> projects, List<Bug> bugList) {
+        this.projects = projects;
+        this.bugList = bugList;
+    }
+
+
+    private Bug findBugById(int bugId) throws BugNotFoundException {
+        return bugList.stream()
+                .filter(bug -> bug.getBugId() == bugId)
+                .findFirst()
+                .orElseThrow(() -> new BugNotFoundException("Bug with ID " + bugId + " not found."));
     }
 
     @Override
-    public User getUser(int userId) {
-        return null;
-    }
+    public void resolveBug(int bugId, int projectId) throws BugNotFoundException, ProjectNotFoundException {
+        // Ensure the project exists
+        Project project = projects.stream()
+                .filter(p -> p.getProjectId() == projectId)
+                .findFirst()
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found with ID: " + projectId));
 
-    @Override
-    public Project getProject(int projectId) {
-        return projects.get(projectId);
-    }
+        // Find the bug by ID
+        Bug bug = findBugById(bugId);
 
-    @Override
-    public List<Project> getAllProjects() {
-        return List.of();
-    }
-
-    @Override
-    public List<Project> getProjectsByUser(int userId) {
-        // Retrieve projects assigned to the developer
-        User user = users.get(userId);
-        return user != null ? user.getProjects() : new ArrayList<>();
-    }
-
-    @Override
-    public Bug getBug(int bugId) {
-        return bugs.get(bugId);
-    }
-
-    @Override
-    public List<Bug> getBugsByProject(int projectId) {
-        // Retrieve bugs associated with a project
-        List<Bug> projectBugs = new ArrayList<>();
-        for (Bug bug : bugs.values()) {
-            if (bug.getProject().getProjectId() == projectId) {
-                projectBugs.add(bug);
-            }
-        }
-        return projectBugs;
-    }
-
-    // Developer-specific operation
-    public void markBugAsResolved(int bugId) {
-        // Mark a bug as resolved in the mock database
-        Bug bug = bugs.get(bugId);
-        if (bug != null) {
+        // Update the bug status to resolved
+        if (bug.getBugStatus() != BugStatus.RESOLVED) {
             bug.setBugStatus(BugStatus.RESOLVED);
             bug.setUpdatedAt(LocalDateTime.now());
+            System.out.println("Bug with ID: " + bugId + " has been resolved.");
+        } else {
+            System.out.println("Bug with ID: " + bugId + " is already resolved.");
+        }
+    }
+
+    @Override
+    public void createReport(int projectId) throws ProjectNotFoundException {
+        // Ensure the project exists
+        Project project = projects.stream()
+                .filter(p -> p.getProjectId() == projectId)
+                .findFirst()
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found with ID: " + projectId));
+
+        // Generate a report of all bugs related to this project
+        System.out.println("Bug Report for Project: " + project.getProjectName());
+        boolean bugsFound = false;
+        for (Bug bug : bugList) {
+            if (bug.getProject().getProjectId() == projectId) {
+                bugsFound = true;
+                System.out.println("Bug ID: " + bug.getBugId());
+                System.out.println("Bug Message: " + bug.getBugMessage());
+                System.out.println("Bug Status: " + bug.getBugStatus());
+                System.out.println("Created At: " + bug.getCreatedAt());
+                System.out.println("Updated At: " + bug.getUpdatedAt());
+                System.out.println("Severity: " + bug.getBugSeverity());
+                System.out.println("------------------------------------");
+            }
+        }
+
+        if (!bugsFound) {
+            System.out.println("No bugs found for the project with ID: " + projectId);
         }
     }
 }
