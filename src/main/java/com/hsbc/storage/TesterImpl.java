@@ -1,25 +1,52 @@
 package com.hsbc.storage;
 
 import com.hsbc.exceptions.BugNotFoundException;
+import com.hsbc.helpers.MySQLHelper;
 import com.hsbc.models.Bug;
 import com.hsbc.models.BugSeverity;
 import com.hsbc.models.BugStatus;
 import com.hsbc.models.Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class TesterImpl implements TesterDAL{
-    private List<Bug> bugList = new ArrayList<>();
+public class TesterImpl implements TesterDAL {
+    private List<Bug> bugList = new ArrayList<Bug>();
+    private ResourceBundle resourceBundle;
+    private PreparedStatement preparedStatement;
+
+    public TesterImpl() {
+        resourceBundle = ResourceBundle.getBundle("db");
+    }
+
     @Override
     public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, Project project) {
         Bug bug = new Bug(bugId, bugMessage, LocalDateTime.now(), null, BugStatus.PENDING, bugSeverity, project);
         bugList.add(bug);
         System.out.println("Bug raised: " + bug);
 
+        String query = resourceBundle.getString("addBug");
+        try (Connection connection = MySQLHelper.getConnection()) {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, bug.getBugMessage());
+            preparedStatement.setString(2, LocalDateTime.now().toString());
+            preparedStatement.setString(3, "");
+            preparedStatement.setString(4, BugStatus.PENDING.name());
+            preparedStatement.setString(5, bug.getBugSeverity().toString());
+            preparedStatement.setInt(6, bug.getProject().getProjectId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
+
     private Bug findBugById(int bugId) throws BugNotFoundException {
         return bugList.stream()
                 .filter(bug -> bug.getBugId() == bugId)

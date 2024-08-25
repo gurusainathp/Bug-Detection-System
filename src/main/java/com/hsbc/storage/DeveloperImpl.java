@@ -2,25 +2,46 @@ package com.hsbc.storage;
 
 import com.hsbc.exceptions.BugNotFoundException;
 import com.hsbc.exceptions.ProjectNotFoundException;
+import com.hsbc.helpers.MySQLHelper;
 import com.hsbc.models.Bug;
 import com.hsbc.models.BugStatus;
 import com.hsbc.models.Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class DeveloperImpl implements DeveloperDAL {
 
     private List<Project> projects; // Storage for projects
     private List<Bug> bugList; // Storage for bugs
+    private ResourceBundle resourceBundle;
 
     public DeveloperImpl(List<Project> projects, List<Bug> bugList) {
         this.projects = projects;
         this.bugList = bugList;
+        resourceBundle = ResourceBundle.getBundle("db");
     }
 
 
     private Bug findBugById(int bugId) throws BugNotFoundException {
+        try (Connection connection = MySQLHelper.getConnection()) {
+            String query = resourceBundle.getString("getBugs");
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bugId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return bugList.stream()
                 .filter(bug -> bug.getBugId() == bugId)
                 .findFirst()
