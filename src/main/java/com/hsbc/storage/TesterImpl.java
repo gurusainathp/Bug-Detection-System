@@ -8,15 +8,14 @@ import com.hsbc.models.BugStatus;
 import com.hsbc.models.Project;
 import com.hsbc.models.User;
 
-<<<<<<< HEAD
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-=======
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
->>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,21 +30,20 @@ public class TesterImpl implements TesterDAL {
         resourceBundle = ResourceBundle.getBundle("db");
     }
 
-<<<<<<< HEAD
+
 public class TesterImpl implements TesterDAL {
     private List<Bug> bugList = new ArrayList<>();
 
-=======
->>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
+
     @Override
     public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, Project project, User assignedDeveloper) {
         Bug bug = new Bug(bugId, bugMessage, LocalDateTime.now(), null, BugStatus.PENDING, bugSeverity, project);
         // Optionally, you can store the developer information in the Bug class, or log it as needed
         bugList.add(bug);
         System.out.println("Bug raised: " + bug);
-<<<<<<< HEAD
+
         System.out.println("Assigned Developer: " + assignedDeveloper.getUserName() + " (Email: " + assignedDeveloper.getEmail() + ")");
-=======
+
 
         String query = resourceBundle.getString("addBug");
         try (Connection connection = MySQLHelper.getConnection()) {
@@ -61,8 +59,6 @@ public class TesterImpl implements TesterDAL {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
->>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
     }
 
     private Bug findBugById(int bugId) throws BugNotFoundException {
