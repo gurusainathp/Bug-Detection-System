@@ -3,21 +3,24 @@ package com.hsbc.models;
 import java.util.List;
 
 public class User {
-    private int userId;
-    private String userName;
-    private String email;
-    private Role role;
-    private List<Project> projects;
+    private int userId; //user di is increment type
+    private String email; //email willl be unique
+    private String password; //taken by user
+    private Role role; //3 roles
 
-    public User() {
+    public User(int userId, String email, String password, Role role) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-    public User(int userId, String userName, String email, Role role, List<Project> projects) {
-        this.userId = userId;
-        this.userName = userName;
+    //custom contructor as we only need 3 values as userId is specified automatically
+    public User(String email, String password, Role role) {
+        this.password = password;
         this.email = email;
         this.role = role;
-        this.projects = projects;
+
     }
 
     public int getUserId() {
@@ -26,14 +29,6 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
@@ -52,22 +47,16 @@ public class User {
         this.role = role;
     }
 
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
-                ", projects=" + projects +
                 '}';
     }
 }

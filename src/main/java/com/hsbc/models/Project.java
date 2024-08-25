@@ -6,16 +6,14 @@ public class Project {
     private int projectId;
     private String projectName;
     private String projectDescription;
-    private List<User> users;
+    //private List<User> users;
 
     public Project() {
     }
 
-    public Project(int projectId, String projectName, String projectDescription, List<User> users) {
-        this.projectId = projectId;
+    public Project( String projectName, String projectDescription) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
-        this.users = users;
     }
 
     public int getProjectId() {
@@ -42,13 +40,6 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     @Override
     public String toString() {
@@ -56,7 +47,6 @@ public class Project {
                 "projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
                 ", projectDescription='" + projectDescription + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

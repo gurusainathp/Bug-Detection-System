@@ -9,18 +9,19 @@ public class Bug {
     private LocalDateTime updatedAt;
     private BugStatus bugStatus;
     private BugSeverity bugSeverity;
-    private Project project;
+    private int projectId;
+    private int userId;  //foregin key to developer to which the bug has been assigned
 
     public Bug() {}
 
-    public Bug(int bugId, String bugMessage, LocalDateTime createdAt, LocalDateTime updatedAt, BugStatus bugStatus, BugSeverity bugSeverity, Project project) {
+    public Bug(int bugId, String bugMessage, LocalDateTime createdAt, LocalDateTime updatedAt, BugStatus bugStatus, BugSeverity bugSeverity, int projectId) {
         this.bugId = bugId;
         this.bugMessage = bugMessage;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.bugStatus = bugStatus;
         this.bugSeverity = bugSeverity;
-        this.project = project;
+        this.projectId = projectId;
     }
 
     public int getBugId() {
@@ -71,12 +72,16 @@ public class Bug {
         this.bugSeverity = bugSeverity;
     }
 
-    public Project getProject() {
-        return project;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public int getDeveloperId() {
+        return userId;
     }
 
     @Override
@@ -88,7 +93,7 @@ public class Bug {
                 ", updatedAt=" + updatedAt +
                 ", bugStatus=" + bugStatus +
                 ", bugSeverity=" + bugSeverity +
-                ", project=" + project +
+                ", project=" + projectId +
                 '}';
     }
 }

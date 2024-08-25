@@ -1,23 +1,18 @@
 package com.hsbc.storage;
 
-import com.hsbc.models.Bug;
-import com.hsbc.models.Project;
+import com.hsbc.exceptions.InvalidCredentialsException;
 import com.hsbc.models.User;
-
-import java.util.List;
 
 public interface UserDAL {
     // User operations
-    void addUser(User user);
-    User getUser(int userId);
+    //sign up user is bascially adding the given user to the database
+    void signUpUser(User user);
 
-    // Project operations
-    Project getProject(int projectId);
-    List<Project> getAllProjects();
-    List<Project> getProjectsByUser(int userId);
+    //login in user using the giving credentails
+    User loginUser(String email, String password)  throws InvalidCredentialsException; //returns user which is used in other dals
 
-    // Bug operations
-    Bug getBug(int bugId);
-    List<Bug> getBugsByProject(int projectId);
-    void markBugAsResolved(int bugId);
+    //get all projects
+
+
+
 }

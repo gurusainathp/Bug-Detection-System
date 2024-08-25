@@ -25,8 +25,8 @@ public class TesterImpl implements TesterDAL {
     }
 
     @Override
-    public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, Project project) {
-        Bug bug = new Bug(bugId, bugMessage, LocalDateTime.now(), null, BugStatus.PENDING, bugSeverity, project);
+    public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, int ProjectId) {
+        Bug bug = new Bug(bugId, bugMessage, LocalDateTime.now(), null, BugStatus.PENDING, bugSeverity, ProjectId);
         bugList.add(bug);
         System.out.println("Bug raised: " + bug);
 
@@ -38,13 +38,12 @@ public class TesterImpl implements TesterDAL {
             preparedStatement.setString(3, "");
             preparedStatement.setString(4, BugStatus.PENDING.name());
             preparedStatement.setString(5, bug.getBugSeverity().toString());
-            preparedStatement.setInt(6, bug.getProject().getProjectId());
+            preparedStatement.setInt(6, bug.getProjectId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private Bug findBugById(int bugId) throws BugNotFoundException {
