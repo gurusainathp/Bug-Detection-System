@@ -6,10 +6,17 @@ import com.hsbc.models.Bug;
 import com.hsbc.models.BugSeverity;
 import com.hsbc.models.BugStatus;
 import com.hsbc.models.Project;
+import com.hsbc.models.User;
 
+<<<<<<< HEAD
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+=======
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+>>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +31,21 @@ public class TesterImpl implements TesterDAL {
         resourceBundle = ResourceBundle.getBundle("db");
     }
 
+<<<<<<< HEAD
+public class TesterImpl implements TesterDAL {
+    private List<Bug> bugList = new ArrayList<>();
+
+=======
+>>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
     @Override
-    public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, Project project) {
+    public void raiseBug(int bugId, String bugMessage, BugSeverity bugSeverity, Project project, User assignedDeveloper) {
         Bug bug = new Bug(bugId, bugMessage, LocalDateTime.now(), null, BugStatus.PENDING, bugSeverity, project);
+        // Optionally, you can store the developer information in the Bug class, or log it as needed
         bugList.add(bug);
         System.out.println("Bug raised: " + bug);
+<<<<<<< HEAD
+        System.out.println("Assigned Developer: " + assignedDeveloper.getUserName() + " (Email: " + assignedDeveloper.getEmail() + ")");
+=======
 
         String query = resourceBundle.getString("addBug");
         try (Connection connection = MySQLHelper.getConnection()) {
@@ -45,6 +62,7 @@ public class TesterImpl implements TesterDAL {
             throw new RuntimeException(e);
         }
 
+>>>>>>> c3844e7ec332987dea86a3c4e4302838e4fd33e6
     }
 
     private Bug findBugById(int bugId) throws BugNotFoundException {
@@ -82,15 +100,40 @@ public class TesterImpl implements TesterDAL {
 
     }
 
-
     @Override
     public void createReport() {
         System.out.println("Creating bug report...");
+
+        // Specify the file path
+        String filePath = "C:\\Users\\91702\\OneDrive\\Desktop\\bug-detection-system\\File\\bug_report.csv";
+
+        // Try-with-resources for handling file operations
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Writing CSV headers
+            writer.write("Bug ID,Bug Message,Bug Severity,Bug Status,Project Name,Created At,Updated At");
+            writer.newLine();
+
+            // Writing bug details to the CSV file
+            for (Bug bug : bugList) {
+                writer.write(bug.getBugId() + "," +
+                        bug.getBugMessage() + "," +
+                        bug.getBugSeverity() + "," +
+                        bug.getBugStatus() + "," +
+                        bug.getProject().getProjectName() + "," +
+                        bug.getCreatedAt() + "," +
+                        (bug.getUpdatedAt() != null ? bug.getUpdatedAt() : "N/A"));
+                writer.newLine();
+            }
+
+            System.out.println("Bug report created successfully at " + filePath);
+
+        } catch (IOException e) {
+            System.err.println("Error writing bug report: " + e.getMessage());
+        }
+
+        // Print bug details in the console as before
         for (Bug bug : bugList) {
             System.out.println(bug);
         }
-        System.out.println("Bug report created.");
-
-
     }
 }
