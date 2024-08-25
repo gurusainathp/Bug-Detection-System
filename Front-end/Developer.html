@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracking System - Developer</title>
+    <link rel="stylesheet" href="Developer.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1 class="heading">Developer Dashboard</h1>
+            <h2>Assigned Projects</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Bug Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bugs-list">
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="right-panel">
+            <h2>Update Bug Status</h2>
+            <form id="update-form">
+                <label for="project-select">Select Project:</label>
+                <select id="project-select">
+
+                </select><br><br>
+                <label for="bug-select">Select Bug:</label>
+                <select id="bug-select">
+                    
+                </select><br><br>
+                <label for="status">Status:</label><br>
+                <textarea id="status" rows="4" cols="50"></textarea><br><br>
+                <button type="submit" class="button">Update Status</button>
+            </form>
+        </div>
+    </div>
+    <script src="Developer.js"></script>
+</body>
+</html> 

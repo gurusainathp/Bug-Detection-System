@@ -1,0 +1,12 @@
+{
+    "projects": [
+      { "id": 1, "name": "Project Alpha", "startDate": "2024-08-20" },
+      { "id": 2, "name": "Project Beta", "startDate": "2024-09-15" }
+    ],
+    "developers": [
+      { "id": 1, "name": "Dev A" },
+      { "id": 2, "name": "Dev B" },
+      { "id": 3, "name": "Dev C" }
+    ]
+  }
+  

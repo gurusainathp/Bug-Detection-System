@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Buster Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+<div class="container">
+    <div class="left-panel">
+        <div class="logo">
+            <img src="logo.png" alt="Bug Buster Logo"> <!-- Replace with your logo -->
+            <h1>Bug Buster</h1>
+        </div>
+        <h2>Create New Account</h2>
+        <p>Already Registered? <a href="#" id="login-link">Login</a></p>
+        <p class="tagline">Tracking bugs was never this seamless.</p>
+        <button class="learn-more">Learn More</button>
+    </div>
+
+    <div class="right-panel">
+        <form id="signup-form">
+            <h2>Sign up</h2>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="">Select</option>
+                <option value="developer">Developer</option>
+                <option value="tester">Tester</option>
+                <option value="manager">Manager</option>
+            </select>
+
+            <button  onclick="to_login()" type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<script src="signup.js"></script>
+</body>
+</html>

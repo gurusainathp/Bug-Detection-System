@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracking System - Project Manager</title>
+    <style >
+        
+    </style>
+    <link rel="stylesheet" href="Manager.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1 class="heading">Project Manager Dashboard</h1>
+            <h2>Projects</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Start Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="projects-list">
+                    <!-- Projects will be dynamically loaded here -->
+                </tbody>
+            </table>
+        </div>
+    
+
+    <div class="right-panel" >
+        <h2>Send Message to Developer</h2>
+        <form id="login-form">
+            <label for="project-select">Select Project:</label>
+            <select id="project-select">
+                <!-- Projects will be loaded here -->
+            </select><br><br>
+            <label for="developer-select">Select Developer:</label>
+            <select id="developer-select">
+                <!-- Developers will be loaded here -->
+            </select><br><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" rows="4" cols="50"></textarea><br><br>
+            <button type="submit" class="button">Send Message</button>
+        </form>
+    </div>
+</div>
+    <script src="Manager.js"></script>
+</body>
+</html>

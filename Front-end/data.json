@@ -1,0 +1,28 @@
+{
+    "projects": [
+        {
+            "projectName": "Project Alpha",
+            "bugs": [
+                "Login issue",
+                "Security vulnerability",
+                "Performance lag"
+            ]
+        },
+        {
+            "projectName": "Project Beta",
+            "bugs": [
+                "UI glitch on dashboard",
+                "Button misalignment",
+                "Page load timeout"
+            ]
+        },
+        {
+            "projectName": "Project Gamma",
+            "bugs": [
+                "API integration error",
+                "Broken link in footer",
+                "Misleading tooltip text"
+            ]
+        }
+    ]
+}
