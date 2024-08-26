@@ -1,4 +1,4 @@
-The project you're working on is a Bug Detection and Tracking System designed to streamline the process of identifying, reporting, managing, and resolving bugs in software development projects. It serves as a comprehensive tool for developers, testers, and project managers, enabling them to effectively collaborate and ensure software quality.
+The project is a Bug Detection and Tracking System designed to streamline the process of identifying, reporting, managing, and resolving bugs in software development projects. It serves as a comprehensive tool for developers, testers, and project managers, enabling them to effectively collaborate and ensure software quality.
 
 Project Overview:
 Objective:
